@@ -57,9 +57,41 @@ void Game::updatePollEvents() {
 	}
 }
 
+void Game::updateInput() {
+	//Move Player
+	Vector2f currentPosition = this->player->getPos();
+	if (Keyboard::isKeyPressed(Keyboard::Q)) {
+		currentPosition.x -= 1 * this->player->getMovementSpeed();
+	}
+	if (Keyboard::isKeyPressed(Keyboard::D)) {
+		currentPosition.x += 1 * this->player->getMovementSpeed();
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Z)) {
+		currentPosition.y -= 1 * this->player->getMovementSpeed();
+	}
+	if (Keyboard::isKeyPressed(Keyboard::S)) {
+		currentPosition.y += 1 * this->player->getMovementSpeed();
+	}
+
+	this->player->moveToWorld(currentPosition);
+	/*
+	if (Mouse::isButtonPressed(Mouse::Left) && this->player->canAttack()) {
+		this->bullets.push_back(
+			std::make_shared<Bullet>(this->textures["BULLET"],
+				this->player->getPos().x + this->player->getBounds().width / 4.f,
+				this->player->getPos().y,
+				1.f,
+				-1.f,
+				5.f
+				)
+		);
+	}*/
+}
+
 void Game::update()
 {
 	this->updatePollEvents();
+	this->updateInput();
 }
 
 void Game::render()

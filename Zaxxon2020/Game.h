@@ -27,6 +27,7 @@ public:
 	void run();
 
 	void updatePollEvents();
+	void updateInput();
 
 	void update();
 	void render();

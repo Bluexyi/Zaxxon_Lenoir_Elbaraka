@@ -11,11 +11,12 @@ Player::Player()
 
 Player::~Player()
 {
-
 }
 
-void Player::initVariables() {
+//Functions publiques
 
+void Player::initVariables() {
+	this->movementSpeed = 3.f;
 }
 
 void Player::initTexture()
@@ -37,3 +38,43 @@ void Player::initSprite()
 }
 
 
+//Fonctions privées
+
+//Getter
+Vector2f Player::getPos() {
+	return this->positonToWorld;
+}
+
+float Player::getMovementSpeed()
+{
+	return this->movementSpeed;
+}
+
+void Player::setMovementSpeed(float newMovementSpeed)
+{
+	this->movementSpeed = newMovementSpeed;
+}
+
+void Player::moveToWorld(sf::Vector2f posXY)
+{
+	this->positonToWorld = posXY;
+	sf::Vector2f positionToScreen = WorldToScreen(posXY);
+	posXY.y -= this->positionZ;
+	this->sprite.setPosition(positionToScreen);
+}
+
+sf::Vector2f Player::WorldToScreen(sf::Vector2f position)
+{
+	// Function to convert a world position to a screen (view) position
+	// ScreenX = 2*WorldX - 2*WorldY
+	// ScreenY = WorldX + WorldY
+	return sf::Vector2f(2.0f * position.x - 2.0f * position.y, position.x + position.y);
+}
+
+sf::Vector2f Player::ScreenToWorld(sf::Vector2f position)
+{
+	// Function to convert a screen (view) position to a world position
+	// WorldX = (ScreenX + 2*ScreenY)/4
+	// WorldY = (2*ScreenY - ScreenX)/4
+	return sf::Vector2f((position.x + 2.0f * position.y) / 4.0f, (2.0f * position.y - position.x) / 4.0f);
+}
