@@ -8,6 +8,9 @@ private:
 
 	float movementSpeed;
 
+	float attackCooldown;
+	float attackCooldownMax;
+
 	sf::Vector2f positonToWorld;
 	float positionZ;
 
@@ -23,6 +26,7 @@ public:
 
 	//Getter
 	sf::Vector2f getPos();
+	sf::FloatRect getBounds();
 	float getMovementSpeed();
 
 	//Setter
@@ -30,9 +34,16 @@ public:
 
 	//Fonction
 
+	//Attack
+	void updateAttack();
+	bool canAttack();
+
 	//Movement
 	void moveToWorld(sf::Vector2f posXY);
 	sf::Vector2f WorldToScreen(sf::Vector2f v);
 	sf::Vector2f ScreenToWorld(sf::Vector2f v);
+
+	//Other
+	void update();
 };
 
