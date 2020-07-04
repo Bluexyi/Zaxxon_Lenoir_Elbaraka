@@ -12,15 +12,12 @@ private:
 	sf::Vector2f positonToWorld;
 	float positionZ;
 
-
 	//Fonctions privées
 	void initVariables();
 
-
-
 public:
 	Bullet();
-	Bullet(sf::Vector2f currentPlayerPosition, float dir_x, float dir_y, float movement_speed);
+	Bullet(sf::Vector2f currentPlayerPosition, float movement_speed);
 	virtual ~Bullet();
 
 	//Getter

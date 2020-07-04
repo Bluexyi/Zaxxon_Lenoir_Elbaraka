@@ -10,21 +10,18 @@ Bullet::Bullet()
 {
 }
 
-Bullet::Bullet(Vector2f currentPlayerPosition, float dir_x, float dir_y, float movement_speed) {
+Bullet::Bullet(Vector2f currentPlayerPosition, float movement_speed) {
 	//Charge les fichiers de texture
 	if (!this->texture.loadFromFile("assets/missile/1.png")) {
-		std::cout << "ERROR::PLAYER::INITTEXTURE::Impossible de charger le fichier de texture du missile" << "\n";
+		std::cout << "ERROR::BULLET::INITTEXTURE::Impossible de charger le fichier de texture du missile" << "\n";
 	}
 	this->sprite.setTexture(texture);
 	//this->shape.setRotation(45);
 
 	this->moveToWorld(currentPlayerPosition);
 	//this->sprite.setPosition(currentPlayerPosition);
-	this->direction.x = dir_x;
-	this->direction.y = dir_y;
 	this->mouvementSpeed = movement_speed;
 }
-
 
 void Bullet::initVariables() {
 	this->mouvementSpeed = 3.f;

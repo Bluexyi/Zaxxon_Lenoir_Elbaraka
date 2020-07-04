@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include <SFML/Audio.hpp>
 
 class Game
 {
@@ -21,8 +22,18 @@ private:
 	float spawnTimerMax;
 	std::vector<std::shared_ptr<Enemy>> enemies;
 
+	//Song
+	sf::SoundBuffer bufferThemeInGame;
+	sf::SoundBuffer bufferSongShootPLayer;
+	sf::SoundBuffer bufferSongHit;
+
+	sf::Sound themeInGame;
+	sf::Sound SongShootPLayer;
+	sf::Sound songHit;
+
 	//Fonctions privées
 	void initWindow();
+	void initSong();
 	void initTextures();
 	void initPlayer();
 	void initEnemies();

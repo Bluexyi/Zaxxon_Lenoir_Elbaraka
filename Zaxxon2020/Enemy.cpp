@@ -19,10 +19,10 @@ void Enemy::initVariables()
 	this->points = 5;
 }
 
-Enemy::Enemy(float pos_x, float pos_y) {
+Enemy::Enemy(sf::Vector2f spawnPosition) {
 	this->initShape();
 	this->initVariables();
-	this->shape.setPosition(pos_x, pos_y);
+	this->moveToWorld(spawnPosition);
 }
 
 Enemy::~Enemy() {
@@ -36,7 +36,25 @@ sf::FloatRect Enemy::getBounds()
 }
 
 //Fonctions
+
+//Movement
+void Enemy::moveToWorld(sf::Vector2f posXY)
+{
+	this->positonToWorld = posXY;
+	sf::Vector2f positionToScreen = WorldToScreen(posXY);
+	posXY.y -= this->positionZ;
+	this->shape.setPosition(positionToScreen);
+}
+
+sf::Vector2f Enemy::WorldToScreen(sf::Vector2f position)
+{
+	return sf::Vector2f(2.0f * position.x - 2.0f * position.y, position.x + position.y);
+}
+
 void Enemy::update()
 {
-	this->shape.move(-1.f, 1.f);
+	//this->shape.move(0, 10);
+	sf::Vector2f newPos = positonToWorld;
+	newPos.y += this->speed;
+	this->moveToWorld(newPos);
 }

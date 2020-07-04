@@ -10,19 +10,25 @@ private:
 	int damage;
 	int points;
 
+	sf::Vector2f positonToWorld;
+	float positionZ;
+
 	void initShape();
 	void initVariables();
 
 public:
-	Enemy(float pos_x, float pos_y);
+	Enemy(sf::Vector2f spawnPosition);
 	virtual ~Enemy();
 	sf::CircleShape shape;
 
 	//getter
 	sf::FloatRect getBounds();
 
+	//Movement
+	void moveToWorld(sf::Vector2f posXY);
+	sf::Vector2f WorldToScreen(sf::Vector2f v);
+
 	//fonctions
 	void update();
-	//void render(sf::RenderTarget target);
 
 };
