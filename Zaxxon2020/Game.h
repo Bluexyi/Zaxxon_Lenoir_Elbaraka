@@ -2,6 +2,7 @@
 #include "Shared.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -15,11 +16,16 @@ private:
 	//Player
 	std::shared_ptr<Player> player;
 
+	//Enemies
+	float spawnTimer;
+	float spawnTimerMax;
+	std::vector<std::shared_ptr<Enemy>> enemies;
+
 	//Fonctions privées
 	void initWindow();
 	void initTextures();
 	void initPlayer();
-	//void initEnemies();
+	void initEnemies();
 
 public:
 	Game();
@@ -31,7 +37,7 @@ public:
 	void updatePollEvents();
 	void updateInput();
 	void updateBullets();
-
+	void updateEnnemiesAndCombat();
 	void update();
 	void render();
 };
