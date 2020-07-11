@@ -17,14 +17,16 @@ Player::~Player()
 
 void Player::initVariables() 
 {
-	this->movementSpeed = 3.f;
-	this->attackCooldownMax = 10.f;
+	this->movementSpeed = 3;
+	this->attackCooldownMax = 10;
 	this->attackCooldown = this->attackCooldownMax;
+
+	this->pvMax = 50;
+	this->pv = this->pvMax;
 }
 
 void Player::initTexture()
 {
-	//Charge les fichiers de texture
 	if (!this->texture.loadFromFile("assets/player/1.png")) {
 		std::cout << "ERROR::PLAYER::INITTEXTURE::Impossible de charger le fichier de texture du player" << "\n";
 	}
@@ -32,12 +34,7 @@ void Player::initTexture()
 
 void Player::initSprite()
 {
-	//Charge les fichiers de sprite
 	this->sprite.setTexture(this->texture);
-
-	//Resize les sprites
-	//this->sprite.scale(0.15f, 0.15f);
-	//this->sprite.setRotation(45);
 }
 
 //Fonctions privées
@@ -57,16 +54,39 @@ float Player::getMovementSpeed()
 	return this->movementSpeed;
 }
 
+int Player::getPv()
+{
+	return this->pv;
+}
+
+int Player::getPvMax()
+{
+	return this->pvMax;
+}
+
 //Setters
 void Player::setMovementSpeed(float newMovementSpeed)
 {
 	this->movementSpeed = newMovementSpeed;
 }
 
+void Player::setPv(int pv)
+{
+	this->pv = pv;
+}
+
+void Player::losePv(int value)
+{
+	this->pv -= value;
+	if (this->pv < 0) {
+		this->pv = 0;
+	}
+}
+
 void Player::updateAttack()
 {
 	if (this->attackCooldown < this->attackCooldownMax) {
-		this->attackCooldown += 0.5f;
+		this->attackCooldown += 0.5;
 	}
 }
 
@@ -74,7 +94,7 @@ void Player::updateAttack()
 bool Player::canAttack() 
 {
 	if (this->attackCooldown >= this->attackCooldownMax) {
-		this->attackCooldown = 0.5f;
+		this->attackCooldown = 0.5;
 		return true;
 	}
 	return false;
@@ -90,7 +110,7 @@ void Player::moveToWorld(sf::Vector2f posXY)
 
 sf::Vector2f Player::WorldToScreen(sf::Vector2f position)
 {
-	return sf::Vector2f(2.0f * position.x - 2.0f * position.y, position.x + position.y);
+	return sf::Vector2f(2.0 * position.x - 2.0 * position.y, position.x + position.y);
 }
 
 //Other

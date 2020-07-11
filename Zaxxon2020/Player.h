@@ -11,6 +11,9 @@ private:
 	float attackCooldown;
 	float attackCooldownMax;
 
+	int pv;
+	int pvMax;
+
 	sf::Vector2f positonToWorld;
 	float positionZ;
 
@@ -28,9 +31,13 @@ public:
 	sf::Vector2f getPos();
 	sf::FloatRect getBounds();
 	float getMovementSpeed();
+	int getPv();
+	int getPvMax();
 
 	//Setter
 	void setMovementSpeed(float newMovementSpeed);
+	void setPv(int pv);
+	void losePv(int value);
 
 	//Fonction
 

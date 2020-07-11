@@ -16,10 +16,8 @@ Bullet::Bullet(Vector2f currentPlayerPosition, float movement_speed) {
 		std::cout << "ERROR::BULLET::INITTEXTURE::Impossible de charger le fichier de texture du missile" << "\n";
 	}
 	this->sprite.setTexture(texture);
-	//this->shape.setRotation(45);
 
 	this->moveToWorld(currentPlayerPosition);
-	//this->sprite.setPosition(currentPlayerPosition);
 	this->mouvementSpeed = movement_speed;
 }
 
@@ -48,7 +46,7 @@ void Bullet::moveToWorld(sf::Vector2f posXY)
 
 sf::Vector2f Bullet::WorldToScreen(sf::Vector2f position)
 {
-	return sf::Vector2f(2.0f * position.x - 2.0f * position.y, position.x + position.y);
+	return sf::Vector2f(2.0 * position.x - 2.0 * position.y, position.x + position.y);
 }
 
 void Bullet::update() {

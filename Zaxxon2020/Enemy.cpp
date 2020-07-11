@@ -4,24 +4,26 @@ using namespace sf;
 
 void Enemy::initShape()
 {
-	this->shape.setRadius(rand() % 20 + 20);
-	this->shape.setPointCount(rand() % 20 + 3);
+	this->shape.setRadius(this->pointCount * 5);
+	this->shape.setPointCount(this->pointCount);
 	this->shape.setFillColor(Color(rand() % 255 + 1, rand() % 255 + 1, rand() % 255 + 1));
 }
 
 void Enemy::initVariables()
 {
+	this->pointCount = rand() % 8 + 3;
 	this->type = 0;
-	this->speed = 5.f;
-	this->pvMax = 10;
-	this->pv = 0;
-	this->damage = 1;
-	this->points = 5;
+	this->speed = this->pointCount / 3;
+	this->pvMax = this->pointCount;
+	this->pv =this->pvMax;
+	this->damage = this->pointCount / 2;
+	this->points = this->pointCount;
 }
 
 Enemy::Enemy(sf::Vector2f spawnPosition) {
-	this->initShape();
 	this->initVariables();
+	this->initShape();
+	//this->shape.setPosition(spawnPosition);
 	this->moveToWorld(spawnPosition);
 }
 
@@ -33,6 +35,16 @@ Enemy::~Enemy() {
 sf::FloatRect Enemy::getBounds()
 {
 	return this->shape.getGlobalBounds();
+}
+
+int Enemy::getPoints()
+{
+	return this->points;
+}
+
+int Enemy::getDamage()
+{
+	return this->damage;
 }
 
 //Fonctions
@@ -48,7 +60,7 @@ void Enemy::moveToWorld(sf::Vector2f posXY)
 
 sf::Vector2f Enemy::WorldToScreen(sf::Vector2f position)
 {
-	return sf::Vector2f(2.0f * position.x - 2.0f * position.y, position.x + position.y);
+	return sf::Vector2f(2.0 * position.x - 2.0 * position.y, position.x + position.y);
 }
 
 void Enemy::update()

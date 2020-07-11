@@ -29,5 +29,4 @@ public:
 	sf::Vector2f WorldToScreen(sf::Vector2f v);
 
 	void update();
-
 };
