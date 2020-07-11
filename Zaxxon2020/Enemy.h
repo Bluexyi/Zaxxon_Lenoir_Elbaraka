@@ -14,6 +14,8 @@ private:
 	sf::Vector2f positonToWorld;
 	float positionZ;
 
+
+
 	void initVariables();
 	void initShape();
 
@@ -26,11 +28,14 @@ public:
 	sf::FloatRect getBounds();
 	int getPoints();
 	int getDamage();
+	int getPv();
+
+	//Setter
+	void losePv(int value);
 
 	//Movement
 	void moveToWorld(sf::Vector2f posXY);
 	sf::Vector2f WorldToScreen(sf::Vector2f v);
-	sf::Vector2f ScreenToWorld(sf::Vector2f v);
 
 	//fonctions
 	void update();

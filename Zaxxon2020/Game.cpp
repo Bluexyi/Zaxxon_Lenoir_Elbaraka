@@ -22,7 +22,7 @@ Game::~Game()
 //Fonctions privées
 void Game::initWindow()
 {
-	this->window.create(VideoMode(800, 600), "Saxon ESGI", Style::Close);
+	this->window.create(VideoMode(800, 600), "Saxxon ESGI", Style::Close);
 	this->window.setFramerateLimit(60);
 	this->window.setVerticalSyncEnabled(false);
 }
@@ -46,6 +46,12 @@ void Game::initSong()
 	}
 	this->songHit.setBuffer(bufferSongHit);
 	this->songHit.setVolume(100);
+
+	if (!bufferThemeGameOver.loadFromFile("assets/song/game-over-theme.wav")) {
+		std::cout << "ERROR::GAME::INITSONG::Impossible de charger le son game-over-theme.wav" << "\n";
+	}
+	this->themeGameOver.setBuffer(bufferThemeGameOver);
+	this->themeGameOver.setVolume(50);
 }
 
 void Game::initTextures() {
@@ -65,6 +71,15 @@ void Game::initHUD()
 	this->pointText.setFillColor(sf::Color::White);
 	this->pointText.setString("score");
 
+	//Init gameOver text
+	this->gameOverText.setFont(this->font);
+	this->gameOverText.setCharacterSize(36);
+	this->gameOverText.setFillColor(sf::Color::Red);
+	this->gameOverText.setString("GAME OVER !");
+	this->gameOverText.setPosition(
+		this->window.getSize().x / 2 - this->gameOverText.getGlobalBounds().width / 2,
+		this->window.getSize().y / 2 - this->gameOverText.getGlobalBounds().height / 2);
+
 	//Init player HUD
 	this->playerPvBar.setSize(sf::Vector2f(300, 25));
 	this->playerPvBar.setFillColor(sf::Color::Red);
@@ -77,6 +92,7 @@ void Game::initHUD()
 
 void Game::initSystems()
 {
+	this->playGameOverTheme = false;
 }
 
 void Game::initPlayer() {
@@ -96,14 +112,22 @@ void Game::run()
 	this->themeInGame.play();
 	while (this->window.isOpen())
 	{
-		this->update();
+		this->updatePollEvents();
+
+		if (this->player->getPv() > 0) {
+			this->update();
+		}
+		if (!this->playGameOverTheme && this->player->getPv() <= 0) {
+			this->themeGameOver.play();
+			this->playGameOverTheme = true;
+		}
 		this->render();
 	}
 }
 
 sf::Vector2f Game::ScreenToWorld(sf::Vector2f v)
 {
-	return sf::Vector2f((v.x + 2.0f * v.y) / 4.0f, (2.0f * v.y - v.x) / 4.0f);
+	return sf::Vector2f((v.x + 2 * v.y) / 4, (2 * v.y - v.x) / 4);
 }
 
 void Game::updatePollEvents() {
@@ -168,7 +192,6 @@ void Game::updateEnnemies()
 	//Spawn enemies
 	this->spawnTimer += 0.5;
 	if (this->spawnTimer >= this->spawnTimerMax) {
-		std::cout << "Spawn Enemy";
 		Vector2f virtualPosition = ScreenToWorld(sf::Vector2f(this->window.getSize().x, this->window.getSize().y));
 		this->enemies.push_back(std::make_shared<Enemy>(sf::Vector2f(rand() % static_cast<int>(virtualPosition.x) + 1, -100)));
 		this->spawnTimer = 0;
@@ -198,11 +221,14 @@ void Game::updateCombat()
 		for (size_t j = 0; j < this->bullets.size(); j++) {
 			if (!enemy_Removed) {
 				if (this->bullets[j]->getBounds().intersects(this->enemies[i]->getBounds())) { //intersects Vérifie l'intersection entre deux rectangles
-					this->points += this->enemies[i]->getPoints();
+					this->enemies[i]->losePv(1);
 					this->songHit.play();
 					this->bullets.erase(this->bullets.begin() + j);
-					this->enemies.erase(this->enemies.begin() + i);
-					enemy_Removed = true;
+					if (this->enemies[i]->getPv() <= 0) {
+						this->points += this->enemies[i]->getPoints();
+						this->enemies.erase(this->enemies.begin() + i);
+						enemy_Removed = true;
+					}
 				}
 			}
 		}
@@ -219,7 +245,6 @@ void Game::updateCombat()
 
 void Game::update()
 {
-	this->updatePollEvents();
 	this->updateInput();
 	this->player->update();
 	this->updateBullets();
@@ -247,5 +272,12 @@ void Game::render()
 		this->window.draw(enemy->shape);
 	}
 	this->renderHUD();
+
+	//Game Over
+	if (this->player->getPv() <= 0) {
+		this->themeInGame.stop();
+		this->window.draw(this->gameOverText);
+	}
+
 	this->window.display();
 }

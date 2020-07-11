@@ -14,14 +14,13 @@ Player::~Player()
 }
 
 //Functions publiques
-
 void Player::initVariables() 
 {
 	this->movementSpeed = 3;
 	this->attackCooldownMax = 10;
 	this->attackCooldown = this->attackCooldownMax;
 
-	this->pvMax = 50;
+	this->pvMax = 30;
 	this->pv = this->pvMax;
 }
 

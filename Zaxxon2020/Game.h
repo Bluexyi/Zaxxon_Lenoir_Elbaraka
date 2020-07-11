@@ -20,8 +20,11 @@ private:
 	sf::Font font;
 	sf::Text pointText;
 
+	sf::Text gameOverText;
+
 	//Systems
 	unsigned points;
+	bool playGameOverTheme;
 
 	//Player
 	std::shared_ptr<Player> player;
@@ -39,10 +42,12 @@ private:
 	sf::SoundBuffer bufferThemeInGame;
 	sf::SoundBuffer bufferSongShootPLayer;
 	sf::SoundBuffer bufferSongHit;
+	sf::SoundBuffer bufferThemeGameOver;
 
 	sf::Sound themeInGame;
 	sf::Sound SongShootPLayer;
 	sf::Sound songHit;
+	sf::Sound themeGameOver;
 
 	//Fonctions privées
 	void initWindow();
