@@ -79,7 +79,6 @@ sf::Vector2f Enemy::WorldToScreen(sf::Vector2f position)
 
 void Enemy::update()
 {
-	//this->shape.move(0, 10);
 	sf::Vector2f newPos = positonToWorld;
 	newPos.y += this->speed;
 	this->moveToWorld(newPos);

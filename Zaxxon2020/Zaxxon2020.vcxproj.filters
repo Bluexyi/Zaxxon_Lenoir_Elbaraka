@@ -54,24 +54,6 @@
   <ItemGroup>
     <None Include="OpenAL32.dll" />
     <None Include="wrap_oal.dll" />
-    <None Include="assets\song\hit1.wav">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\song\game-over-theme.wav">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\song\firePlayer.wav">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\song\airwolf-theme.wav">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\player\1.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\missile\1.png">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\policy\Fipps-Regular.otf" />
@@ -80,5 +62,25 @@
     <Image Include="assets\missile\2.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\missile\1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\player\1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\song\airwolf-theme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\song\firePlayer.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\song\game-over-theme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="assets\song\hit1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
