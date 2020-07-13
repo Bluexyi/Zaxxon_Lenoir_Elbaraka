@@ -14,8 +14,6 @@ private:
 	sf::Vector2f positonToWorld;
 	float positionZ;
 
-
-
 	void initVariables();
 	void initShape();
 

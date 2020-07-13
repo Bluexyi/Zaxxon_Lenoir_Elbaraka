@@ -9,6 +9,7 @@ Game::Game()
 	this->initWindow();
 	this->initTextures();
 	this->initHUD();
+	this->initWorld();
 	this->initSong();
 	this->initPlayer();
 	this->initEnemies();
@@ -88,6 +89,14 @@ void Game::initHUD()
 	this->playerPvBarBack = this->playerPvBar;
 	this->playerPvBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 
+}
+
+void Game::initWorld()
+{
+	if (!this->worldBackgroundTexture.loadFromFile("assets/background/space-font.jpg")) {
+		std::cout << "ERROR::GAME::INITWORLD::Impossible de charger la texture space-font.jpg" << "\n";
+	}
+	this->worldBackgroundSprite.setTexture(this->worldBackgroundTexture);
 }
 
 void Game::initSystems()
@@ -220,7 +229,7 @@ void Game::updateCombat()
 
 		for (size_t j = 0; j < this->bullets.size(); j++) {
 			if (!enemy_Removed) {
-				if (this->bullets[j]->getBounds().intersects(this->enemies[i]->getBounds())) { //intersects Vérifie l'intersection entre deux rectangles
+				if (this->bullets[j]->getBounds().intersects(this->enemies[i]->getBounds())) {
 					this->enemies[i]->losePv(1);
 					this->songHit.play();
 					this->bullets.erase(this->bullets.begin() + j);
@@ -260,9 +269,17 @@ void Game::renderHUD()
 	this->window.draw(this->playerPvBar);
 }
 
+void Game::renderWorld()
+{
+	this->window.draw(this->worldBackgroundSprite);
+}
+
 void Game::render()
 {
 	this->window.clear();
+
+	this->renderWorld();
+
 	this->window.draw(this->player->sprite);
 	for (int i = 0; i < bullets.size(); i++) {
 		this->window.draw(bullets[i]->getSprite());

@@ -19,8 +19,11 @@ private:
 	//HUD
 	sf::Font font;
 	sf::Text pointText;
-
 	sf::Text gameOverText;
+
+	//World
+	sf::Texture worldBackgroundTexture;
+	sf::Sprite worldBackgroundSprite;
 
 	//Systems
 	unsigned points;
@@ -54,6 +57,7 @@ private:
 	void initSong();
 	void initTextures();
 	void initHUD();
+	void initWorld();
 	void initSystems();
 	void initPlayer();
 	void initEnemies();
@@ -75,5 +79,6 @@ public:
 	void updateCombat();
 	void update();
 	void renderHUD();
+	void renderWorld();
 	void render();
 };

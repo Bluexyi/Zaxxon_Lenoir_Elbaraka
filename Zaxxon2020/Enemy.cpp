@@ -59,6 +59,7 @@ void Enemy::losePv(int value)
 	}
 	this->shape.setRadius(this->pv * 5);
 	this->shape.setPointCount(this->pv);
+	this->speed = 5.0 / this->pv;
 }
 
 //Fonctions
