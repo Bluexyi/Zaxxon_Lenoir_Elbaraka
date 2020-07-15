@@ -154,22 +154,22 @@ void Game::updatePollEvents() {
 void Game::updateInput() {
 	//Move Player
 	Vector2f currentPosition = this->player->getPos();
-	if (Keyboard::isKeyPressed(Keyboard::Q)) {
+	if (Keyboard::isKeyPressed(Keyboard::Left)) {
 		currentPosition.x -= 1 * this->player->getMovementSpeed();
 	}
-	if (Keyboard::isKeyPressed(Keyboard::D)) {
+	if (Keyboard::isKeyPressed(Keyboard::Right)) {
 		currentPosition.x += 1 * this->player->getMovementSpeed();
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Z)) {
+	if (Keyboard::isKeyPressed(Keyboard::Up)) {
 		currentPosition.y -= 1 * this->player->getMovementSpeed();
 	}
-	if (Keyboard::isKeyPressed(Keyboard::S)) {
+	if (Keyboard::isKeyPressed(Keyboard::Down)) {
 		currentPosition.y += 1 * this->player->getMovementSpeed();
 	}
 
 	this->player->moveToWorld(currentPosition);
 
-	if (Mouse::isButtonPressed(Mouse::Left) && this->player->canAttack()) {
+	if (Keyboard::isKeyPressed(Keyboard::Space) && this->player->canAttack()) {
 		this->SongShootPLayer.play();
 		this->bullets.push_back(std::make_shared<Bullet>(currentPosition,5));
 	}

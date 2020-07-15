@@ -68,6 +68,9 @@
     <Image Include="assets\player\1.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\background\space-font.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="assets\song\airwolf-theme.wav">
